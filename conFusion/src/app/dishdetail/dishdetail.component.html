@@ -51,3 +51,39 @@
     <mat-spinner></mat-spinner><h4>Loading . . . Please Wait!</h4>
   </div>
 </div>
+
+<div>
+  <span class="flex-spacer"> </span>
+<div fxFlex fxFlexOffset="20px" class="form-size">
+ 
+  <div matLine  *ngIf="ratingForm.valid"> 
+    <p>{{ratingForm.value.comment}} </p>  
+    <p>  <span> {{ratingForm.value.rating}} Stars </span></p>
+     <p> <span> -- {{ratingForm.value.author}}</span></p>
+  </div>
+  <form novalidate [formGroup]="ratingForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field>
+        <input matInput formControlName="author" placeholder="Name" type="text" required>
+        <mat-error *ngIf="ratingForm.get('author')?.hasError('required') && 
+        ratingForm.get('author')?.touched"  >Author Name is required</mat-error>          
+      </mat-form-field>
+      </p>
+
+      <mat-slider formControlName="rating" aria-label="unit(s)" min="1" max="5" step="1" value="5" thumbLabel tickInterval="1"></mat-slider>
+
+    <p>
+      <mat-form-field class="full-width">
+        <textarea matInput formControlName="comment" placeholder="Your Comment" rows="12">
+        </textarea>
+        <mat-error *ngIf="ratingForm.get('comment')?.hasError('required') && 
+        ratingForm.get('comment')?.touched">Comment is required</mat-error>  
+     
+        
+      </mat-form-field>
+    </p>
+    <button type="submit" mat-button class="background-primary text-floral-white"
+    [disabled]="ratingForm.invalid">Submit</button>
+  </form>
+</div>
+</div>
